@@ -19,7 +19,7 @@ to register all functions in the appropriate Lua state.
 ## Executing the Extension Code
 
 A entity is presumably laid out in memory like this:
-```
+```c++
 class Entity
 {
 	void *vtable_pointer;	// normally invisible, the compiler creates this member
@@ -39,13 +39,13 @@ The main vulnerability are these two functions:
 These two Lua functions allow unchecked(!) access to the RAM,
 albeit relative from a random location in the heap.
 
-````
+```c++
 Entity::SetScriptingValue(int nr, int value)
 {
 	//no bounds checking occurs (!)
 	this->scriptingValues[nr] = value;
 }
-````
+```
 Because we don't know where the entity object is located on the heap, we cannot 
 access any absolute address using this facility.
 But it is possible to modify the vtable pointer using a negative value 
