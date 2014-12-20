@@ -1,0 +1,7 @@
+stage1 loader:
+needs to be completely ASCII, (allowed values: 32 - 127)
+the main stage1 loader (asciiLoader.asm) is standard NULL-free asm
+which is then encoded to ASCII using ALPHA2
+this generated code expects its base address in eax.
+this is accomplished by asciiPre.asm (strictly ASCII only)
+the full stage1 loader is therefore:  { asciiPre.bin + alpha2 output }
