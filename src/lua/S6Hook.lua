@@ -5,9 +5,9 @@ function InstallS6Hook()
 		DEBUG_AddNote("S6Hook failed! Please install patch 1.71!");
 	end
 
-	local stage1 = "==STAGE1==";
-	local stage2 = "==STAGE2==";
-	local stage3 = "==STAGE3==";
+	local stage1 = "@@stage1.bin@@";
+	local stage2 = "@@stage2.yx@@";
+	local stage3 = "@@S6Hook.yx@@";
 	
 	local shrink = function(cc)
 	 local o, n, max = {}, 1, string.len(cc)
