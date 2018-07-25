@@ -47,6 +47,7 @@ installer:
 %include 'funcs/alert.inc'
 ;%include 'funcs/XXXXX.inc'
 ;%include 'funcs/YYYYY.inc'
+%include 'funcs/memory.inc'
 
 triggerInt3:
 		int3

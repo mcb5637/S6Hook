@@ -12,8 +12,9 @@ hookTempBuf		equ	0B3FDC4h	; unused so far
 
 					; Funcs     ; Args, push order ->
 ;bluebyte
-shok_lua_toint	equ 999999h
-shok_eid2obj	equ	999999h
+shok_lua_toint	equ 462384h     ; thiscall: lua state in ecx
+shok_eid2obj	equ	51D6D1h
+shok_lua_pushint equ 46241Dh    ; thiscall: lua state in ecx
 regLuaFunc		equ	465E1Ah		; 0, funcPtr, strFuncName, strTable;   ecx = luaState
 
 ;common
