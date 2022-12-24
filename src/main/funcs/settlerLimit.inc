@@ -1,49 +1,8 @@
 section luaTable
-		;tableEntry EMGetterLimit, "EMX_GetSettlerLimit"
-		tableEntry EMSetterLimit, "EMX_SetSettlerLimit"
-		
-		;tableEntry EMGetterSermonLimit, "EMX_GetSermonSettlerLimit"
-		;tableEntry EMSetterSermonLimit, "EMX_SetSermonSettlerLimit"
+		tableEntry EMSetterLimit, 			"EMX_SetSettlerLimit"
+		;tableEntry EMSetterSermonLimit, 	"EMX_SetSermonSettlerLimit"
 section code
-EMGetterSermonLimit:
-		pushad
-        mov ecx, [esp+24h]
-        mov ebx, ecx
-		
-        push 1
-        call shok_lua_toint
-
-		mov edx, [playerInformationStruct]
-		mov edx, [edx + 198h]
-		mov eax, [edx + eax * 4h]
-
-		mov ecx, [esp+24h] ; get lua state
-        push eax
-        call 46241dh ;Write Double to Lua
-		
-        popad
-		mov eax, 1 ; 1 Return Values to Lua State
-        retn
 EMSetterSermonLimit:
-		pushad
-        mov ecx, [esp+24h]
-        mov ebx, ecx
-		
-        push 1
-        call shok_lua_toint
-
-		mov edx, [playerInformationStruct]
-		mov edx, [edx + 198h]
-		mov eax, [edx + eax * 4h]
-
-		mov ecx, [esp+24h] ; get lua state
-        push eax
-        call 46241dh ;Write Double to Lua
-		
-        popad
-		mov eax, 1 ; 1 Return Values to Lua State
-        retn
-EMGetterLimit:
 		pushad
         mov ecx, [esp+24h]
         mov ebx, ecx
