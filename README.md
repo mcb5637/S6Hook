@@ -9,4 +9,4 @@ Include the code from `output/S6Hook.lua` in your map and execute `InstallS6Hook
 Simply execute the `build.bat` to build the source code into a ready-to-use Lua script.
 
 ### Tech
-Read more about the implementation [here](https://bitbucket.org/dbeinder/s6hook/src/tip/TECH.md).
+Read more about the implementation [here](https://github.com/Siedelwood/S6Hook/blob/master/TECH.md).
