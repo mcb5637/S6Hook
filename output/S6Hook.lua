@@ -39,9 +39,9 @@
 	--]]
 	
 function InstallS6Hook()
-	if nil == string.find(Framework.GetProgramVersion(), "1.71.4289") then
-		Logic.DEBUG_AddNote("S6Hook failed! Please install patch 1.71!");
-		return;
+	if (nil == string.find(Framework.GetProgramVersion(), "1.71.4289")) or (Network.IsNATReady == nil) then
+		-- No Patch 1.71 installed or History Edition
+		return false;
 	end
 
 	local stage1 = "QRX4,haaaa^30VX5uaaaPYIIIIIIIIIIIIIIII7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJITqKp2p2JeRyorTq4WhOOHLrPnomPjqkWXQXoKOtWKOipA";
