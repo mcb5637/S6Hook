@@ -39,7 +39,7 @@
 	--]]
 	
 function InstallS6Hook()
-	if (nil == string.find(Framework.GetProgramVersion(), "1.71.4289")) or (Network.IsNATReady == nil) then
+	if (nil == string.find(Framework.GetProgramVersion(), "1.71.4289")) or (Network.IsNATReady ~= nil) then
 		-- No Patch 1.71 installed or History Edition
 		return false;
 	end
