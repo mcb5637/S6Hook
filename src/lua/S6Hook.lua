@@ -7,6 +7,7 @@
 		S6Hook.EMX_GetMaxStockSize(_entityID) -> Returns the current max stock size of a Entity
 		S6Hook.EMX_SetMaxStoreStockSize(_storehouseID, _stockSize) -> Sets the max stock size of the storehouse
 		S6Hook.EMX_SetSettlerLimit(_limit) -> Sets a new Settler Limit
+		S6Hook.EMX_SetSoldierLimit(_limit) -> Sets a new Soldier Limit
 		S6Hook.EMX_SetSermonSettlerLimit(_limit) -> Sets a new Sermon Settler Limit
 		S6Hook.EMX_GetTopMostArchive() -> Gets the topmost archive that is currently loaded
 		
@@ -37,6 +38,7 @@
 			Logic.DEBUG_AddNote(S6Hook.EMX_GetTopMostArchive()) -- Topmost loaded archive on stack
 			S6Hook.EMX_SetSettlerLimit(353) -- All 6 Levels are updated with this number
 			S6Hook.EMX_SetSermonSettlerLimit(32) -- All 4 Levels are updated with this number
+			S6Hook.EMX_SetSoldierLimit(344) -> All 4 Levels are updated with this number
 		end
 	--]]
 	
