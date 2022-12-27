@@ -46,6 +46,9 @@ installer:
 %include 'funcs/stockSizes.inc'
 %include 'funcs/settlerLimit.inc'
 %include 'funcs/archiveLoading.inc'
+%include 'funcs/soldierLimit.inc'
+
+;%include 'funcs/testingStuff.inc'
 
 triggerInt3:
 		int3

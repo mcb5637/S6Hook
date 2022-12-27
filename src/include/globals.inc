@@ -27,6 +27,7 @@ castStockBehavior         equ 4f403ch
 getSettlerLimit           equ 4fd91fh
 getOffsetOfObject         equ 667f28h
 listOfEntityIDs           equ 0aae400h ; ptr to global object
+getEntityIDObjectPtr      equ 49dbd6h ; needs the listOfEntityIDs as first param
 
 dynamicCast               equ 72aa63h
 playerInformationStruct   equ 0aae0fch ; ptr to global object
