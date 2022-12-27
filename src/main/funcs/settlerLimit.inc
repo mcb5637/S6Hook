@@ -1,25 +1,30 @@
 section luaTable
 		tableEntry EMSetterLimit, 			"EMX_SetSettlerLimit"
-		;tableEntry EMSetterSermonLimit, 	"EMX_SetSermonSettlerLimit"
+		tableEntry EMSetterSermonLimit, 	"EMX_SetSermonSettlerLimit"
 section code
 EMSetterSermonLimit:
 		pushad
-        mov ecx, [esp+24h]
-        mov ebx, ecx
 		
+		mov ecx, dword [0AAE400h] ; List of all Entities 
+		push 1
+		call 4ABD63h ; Get Object that contains SermonLimitValues
+				
+		mov ebx, dword [eax + 80h]
+		mov ebx, [ebx + 2f4h]
+		
+		mov ecx, [esp+24h] ; Lua State
         push 1
-        call shok_lua_toint
+        call 462384h ; LuaGetArgument
+	
+		mov [ebx + 0 * 4h], eax
+		mov [ebx + 1 * 4h], eax
+		mov [ebx + 2 * 4h], eax
+		mov [ebx + 3 * 4h], eax
+		;Again, would it be better to set it by level?
 
-		mov edx, [playerInformationStruct]
-		mov edx, [edx + 198h]
-		mov eax, [edx + eax * 4h]
-
-		mov ecx, [esp+24h] ; get lua state
-        push eax
-        call 46241dh ;Write Double to Lua
-		
+        ; return 0 values
         popad
-		mov eax, 1 ; 1 Return Values to Lua State
+        mov eax, 0
         retn
 EMSetterLimit:
 		pushad

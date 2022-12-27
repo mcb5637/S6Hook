@@ -26,9 +26,10 @@ castStockBehavior         equ 4f403ch
 
 getSettlerLimit           equ 4fd91fh
 getOffsetOfObject         equ 667f28h
+listOfEntityIDs           equ 0aae400h ; ptr to global object
 
 dynamicCast               equ 72aa63h
-playerInformationStruct   equ 0aae0fch ; ptr  to global object
+playerInformationStruct   equ 0aae0fch ; ptr to global object
 
 ;Stuff for Archive Loading
 addBBAArchive             equ 63d26dh
