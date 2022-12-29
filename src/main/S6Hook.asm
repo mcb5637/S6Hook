@@ -10,7 +10,7 @@ sS6Hook			db "S6Hook", 0
 
 section luaTable align=1
 luaFuncTable:
-				tableEntry triggerInt3,		"Break"
+		tableEntry triggerInt3,		"Break"
 
 section globalVars align=1
 				dd 0						; 0 marks end of table
@@ -19,10 +19,8 @@ section globalVars align=1
 section code align=1
 installer:
 		pushad 
-		
 		mov edi, [gloLuaHandle]
-		mov esi, luaFuncTable
-		
+		mov esi, luaFuncTable	
 .nextEntry:
 		push 0						; no description
 		push dword [esi]			; func ptr
@@ -43,10 +41,14 @@ installer:
 		popad
 		retn
 		
-%include 'funcs/evalLua.inc'
-%include 'funcs/alert.inc'
-;%include 'funcs/XXXXX.inc'
-;%include 'funcs/YYYYY.inc'
+%include 'funcs/baseFunctions.inc'
+%include 'funcs/memoryManipulation.inc'
+%include 'funcs/stockSizes.inc'
+%include 'funcs/settlerLimit.inc'
+%include 'funcs/archiveLoading.inc'
+%include 'funcs/soldierLimit.inc'
+
+;%include 'funcs/testingStuff.inc'
 
 triggerInt3:
 		int3

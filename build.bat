@@ -1,6 +1,6 @@
 :: S6Hook buildscript 
 :: <2014> yoq
-@echo off
+@echo on
 
 :: stage 1 loader
 utils\nasm -isrc/include/ -o bin/stage1/asciiPre.bin src/stage1/asciiPre.asm 
@@ -23,3 +23,5 @@ utils\yoqTempl "output\S6Hook.lua"
 del output\stage1.bin
 del output\stage2.yx
 del output\S6Hook.yx
+
+pause

@@ -1,5 +1,5 @@
 ## Overview
-### Inital Loader [stage1]
+### Initial Loader [stage1]
 Is executed directly in the Log buffer and can only contain 
 printable characters (``32 <= c <= 127``).
 This loads ``stage2`` from the 2nd Lua argument and jumps to
