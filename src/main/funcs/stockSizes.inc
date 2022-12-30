@@ -25,13 +25,10 @@ EMSetStoreStockSize:
 		mov ecx, eax
 		call castStockBehavior
 		
-		mov ecx, eax
-		push ebx ; This is the new Value
-		push 1
-		call setStockSizeOfObjectStore
+		mov dword [eax + 4ch], ebx
 
         popad
-		mov eax, 0 ; No Return Values to Lua State
+		mov eax, 0
         retn
 EMGetMaxStockSize:
         pushad
@@ -48,8 +45,6 @@ EMGetMaxStockSize:
         call shok_eid2obj
         
 		mov ecx, eax
-        ; set return value
-        ;push ecx
 		call getOutStockObject
 		
 		mov ecx, eax
@@ -79,18 +74,17 @@ EMSetMaxStockSize:
         push 1
         call shok_lua_toint
 	       
-        ; Entity ID - Ptr Object
+        ; Entity ID -> Ptr Object
         push eax
         call shok_eid2obj
         
+		; Ptr - Object -> Cast to OutStockObject
 		mov ecx, eax
 		call getOutStockObject
 		
-		mov ecx, eax
-		push ebx ; This is the new Value
-		push 1 ; Useless Argument
-		call setMaxOutStockSize
+		; Set the new Value in the corresponding array index 
+		mov dword [eax + 34h], ebx
 
         popad
-		mov eax, 0 ; No Return Values to Lua State
+		mov eax, 0
         retn
