@@ -1,6 +1,7 @@
 --[[ S6Hook v0.1a  // by yoq ]]--
 --[[ Changes by mcb          ]]--
 --[[ Changes by Eisenmonoxid ]]--
+--[[ Current Version: 1.3    ]]--
 
 	--[[ 
 		S6Hook.EMX_SetMaxStockSize(_entityID, _stockSize) -> Sets the max stock size of a Entity
@@ -9,6 +10,7 @@
 		S6Hook.EMX_SetSettlerLimit(_limit) -> Sets a new Settler Limit
 		S6Hook.EMX_SetSoldierLimit(_limit) -> Sets a new Soldier Limit
 		S6Hook.EMX_SetSermonSettlerLimit(_limit) -> Sets a new Sermon Settler Limit
+		S6Hook.EMX_SetMaxBuildingEarnings(_earningsAmount) -> Sets the new max amount of city buildings earnings
 		S6Hook.EMX_GetTopMostArchive() -> Gets the topmost archive that is currently loaded
 		
 		S6Hook.Alert(_string) -> Shows a MessageWindow with the specified string
@@ -30,15 +32,16 @@
 			S6Hook.Alert("ID of Building: "..tostring(ID))
 			
 			Logic.DEBUG_AddNote(S6Hook.EMX_GetMaxStockSize(ID))
-			S6Hook.EMX_SetMaxStockSize(ID, 35) -- New max stock size is 35
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetMaxStockSize(ID, 35)) -- New max stock size is 35
 			Logic.DEBUG_AddNote(S6Hook.EMX_GetMaxStockSize(ID))
 	
-			S6Hook.EMX_SetMaxStoreStockSize(Logic.GetStoreHouse(1), 34567) -- Should also work with all other "Storehouse" Buildings
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetMaxStoreStockSize(Logic.GetStoreHouse(1), 34567)) -- Should also work with all other "Storehouse" Buildings
 			
 			Logic.DEBUG_AddNote(S6Hook.EMX_GetTopMostArchive()) -- Topmost loaded archive on stack
-			S6Hook.EMX_SetSettlerLimit(353) -- All 6 Levels are updated with this number
-			S6Hook.EMX_SetSermonSettlerLimit(32) -- All 4 Levels are updated with this number
-			S6Hook.EMX_SetSoldierLimit(344) -> All 4 Levels are updated with this number
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetSettlerLimit(353)) -- All 6 Levels are updated with this number
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetSermonSettlerLimit(32)) -- All 4 Levels are updated with this number
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetSoldierLimit(344)) -> All 4 Levels are updated with this number
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetMaxBuildingEarnings(554)) -> Sets new max earnings amount
 		end
 	--]]
 	

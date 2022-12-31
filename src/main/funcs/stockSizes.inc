@@ -2,7 +2,21 @@ section luaTable
 		tableEntry EMSetMaxStockSize,		"EMX_SetMaxStockSize"
 		tableEntry EMGetMaxStockSize,		"EMX_GetMaxStockSize"
 		tableEntry EMSetStoreStockSize,		"EMX_SetMaxStoreStockSize"
+		tableEntry EMSetMaxBuildingIncome,	"EMX_SetMaxBuildingEarnings"
 section code
+EMSetMaxBuildingIncome:
+		pushad
+        ; New Earnings Amount
+		mov ecx, [esp+24h]
+        push 1
+        call shok_lua_toint
+		
+		mov ebx, dword [playerInformationStruct]
+		mov [ebx + 270h], eax
+
+		mov ecx, [esp+24h] ; get lua state
+        push 1		
+		jmp returnToLuaState
 EMSetStoreStockSize:
 		pushad
         mov ecx, [esp+24h]
