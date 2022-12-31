@@ -21,15 +21,22 @@ EMSetStoreStockSize:
         ; Entity ID - Ptr Object
         push eax
         call shok_eid2obj
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
 
 		mov ecx, eax
 		call castStockBehavior
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
 		
-		mov dword [eax + 4ch], ebx
-
-        popad
-		mov eax, 0
-        retn
+		mov ecx, eax
+		push ebx ; This is the new Value
+		push 1
+		call setStockSizeOfObjectStore
+		
+		mov ecx, [esp+24h] ; get lua state
+        push 1		
+		jmp returnToLuaState
 EMGetMaxStockSize:
         pushad
         mov ecx, [esp+24h] ; get lua state
@@ -43,9 +50,13 @@ EMGetMaxStockSize:
         ; get mem adress
         push eax
         call shok_eid2obj
+		test eax, eax
+		je noObjectFoundError
         
 		mov ecx, eax
 		call getOutStockObject
+		test eax, eax
+		je noObjectFoundError
 		
 		mov ecx, eax
 		push 1 ;useless arg
@@ -53,12 +64,7 @@ EMGetMaxStockSize:
 		
 		mov ecx, [esp+24h] ; get lua state
         push eax
-        call shok_lua_pushint
-
-        ; return 1 value
-        popad
-        mov eax, 1
-        retn
+		jmp returnToLuaState
 EMSetMaxStockSize:
         pushad
         mov ecx, [esp+24h]
@@ -74,17 +80,22 @@ EMSetMaxStockSize:
         push 1
         call shok_lua_toint
 	       
-        ; Entity ID -> Ptr Object
+        ; Entity ID - Ptr Object
         push eax
         call shok_eid2obj
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
         
-		; Ptr - Object -> Cast to OutStockObject
 		mov ecx, eax
 		call getOutStockObject
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
 		
-		; Set the new Value in the corresponding array index 
-		mov dword [eax + 34h], ebx
-
-        popad
-		mov eax, 0
-        retn
+		mov ecx, eax
+		push ebx ; This is the new Value
+		push 1 ; Useless Argument
+		call setMaxOutStockSize
+		
+		mov ecx, [esp+24h] ; get lua state
+        push 1
+		jmp returnToLuaState

@@ -47,16 +47,12 @@ installer:
 %include 'funcs/settlerLimit.inc'
 %include 'funcs/archiveLoading.inc'
 %include 'funcs/soldierLimit.inc'
-
 ;%include 'funcs/testingStuff.inc'
 
 triggerInt3:
 		int3
 		xor eax, eax
 		retn
-		
-		; TODO: code for these hooks 
-
 unpatchEverything:
 section cleanup align=1
 		retn

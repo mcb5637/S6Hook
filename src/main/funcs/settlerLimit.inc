@@ -5,9 +5,11 @@ section code
 EMSetterSermonLimit:
 		pushad
 		
-		mov ecx, dword [0AAE400h] ; List of all Entities 
+		mov ecx, dword [listOfEntityIDs]
 		push 1
 		call 4ABD63h ; Get Object that contains SermonLimitValues
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
 				
 		mov ebx, dword [eax + 80h]
 		mov ebx, [ebx + 2f4h]
@@ -22,10 +24,9 @@ EMSetterSermonLimit:
 		mov [ebx + 3 * 4h], eax
 		;Again, would it be better to set it by level?
 
-        ; return 0 values
-        popad
-        mov eax, 0
-        retn
+		mov ecx, [esp+24h] ; get lua state
+        push 1		
+		jmp returnToLuaState
 EMSetterLimit:
 		pushad
         mov ecx, [esp+24h]
@@ -44,6 +45,6 @@ EMSetterLimit:
 		; TODO - Would it be a better idea to have a Lua arg for the tbl index?
 		; Rather than just setting all 6 values to the same size? Don't know 
 		
-        popad
-		mov eax, 0 ; 0 Return Values to Lua State
-        retn
+		mov ecx, [esp+24h] ; get lua state
+        push 1		
+		jmp returnToLuaState
