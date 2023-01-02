@@ -1,21 +1,36 @@
 --[[ S6Hook v0.1a  // by yoq ]]--
 --[[ Changes by mcb          ]]--
 --[[ Changes by Eisenmonoxid ]]--
---[[ Current Version: 1.3    ]]--
+--[[ Current Version: 1.0.4  ]]--
 
+	-- "Documentation" by Eisenmonoxid ( If someone wants to do a actual documentation, feel free to do it ;) )
 	--[[ 
-		S6Hook.EMX_SetMaxStockSize(_entityID, _stockSize) -> Sets the max stock size of a Entity
-		S6Hook.EMX_GetMaxStockSize(_entityID) -> Returns the current max stock size of a Entity
-		S6Hook.EMX_SetMaxStoreStockSize(_storehouseID, _stockSize) -> Sets the max stock size of the storehouse
-		S6Hook.EMX_SetSettlerLimit(_limit) -> Sets a new Settler Limit
-		S6Hook.EMX_SetSoldierLimit(_limit) -> Sets a new Soldier Limit
-		S6Hook.EMX_SetSermonSettlerLimit(_limit) -> Sets a new Sermon Settler Limit
-		S6Hook.EMX_SetMaxBuildingEarnings(_earningsAmount) -> Sets the new max amount of city buildings earnings
-		S6Hook.EMX_GetTopMostArchive() -> Gets the topmost archive that is currently loaded
+		S6Hook.EMX_SetMaxStockSize(_entityID, _stockSize) 
+			-> Sets the max stock size of a Entity
+		S6Hook.EMX_GetMaxStockSize(_entityID) 
+			-> Returns the current max stock size of a Entity
+		S6Hook.EMX_SetMaxStoreStockSize(_storehouseID, _stockSize) 
+			-> Sets the max stock size of the storehouse
+		S6Hook.EMX_SetSettlerLimit(_limit) 
+			-> Sets a new Settler Limit
+		S6Hook.EMX_SetSoldierLimit(_limit) 
+			-> Sets a new Soldier Limit
+		S6Hook.EMX_SetSermonSettlerLimit(_limit) 
+			-> Sets a new Sermon Settler Limit
+		S6Hook.EMX_SetMaxBuildingEarnings(_earningsAmount) 
+			-> Sets the new max amount of city buildings earnings
+		S6Hook.EMX_SetFullBuildingCosts(_buildingType, _Good, _Amount, _Good, _Amount)
+			-> Sets new building costs for a building, note that the last two parameters only work when
+			   the building already had two goods as costs! Otherwise unexpected things will happen ;)
+		S6Hook.EMX_GetTopMostArchive() 
+			-> Returns the topmost archive that is currently loaded
 		
-		S6Hook.Alert(_string) -> Shows a MessageWindow with the specified string
-		S6Hook.Eval(_string) -> Evaluates lua code provided as string
-		S6Hook.Break() -> Triggers an INT3 (Helpful for Debugging)
+		S6Hook.Alert(_string) 
+			-> Shows a MessageWindow with the specified string
+		S6Hook.Eval(_string) 
+			-> Evaluates lua code provided as string
+		S6Hook.Break() 
+			-> Triggers an INT3 (Helpful for Debugging)
 	]]--
 	
 	--[[
@@ -42,6 +57,8 @@
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetSermonSettlerLimit(32)) -- All 4 Levels are updated with this number
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetSoldierLimit(344)) -> All 4 Levels are updated with this number
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetMaxBuildingEarnings(554)) -> Sets new max earnings amount
+			
+			S6Hook.EMX_SetFullBuildingCosts(76, Goods.G_Grain, 15) -> 76 is B_Baths f.e.
 		end
 	--]]
 	
@@ -51,9 +68,9 @@ function InstallS6Hook()
 		return false;
 	end
 
-	local stage1 = "QRX4,haaaa^30VX5uaaaPYIIIIIIIIIIIIIIII7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJIp1YPpPPjwrkO0tgTTXoOJlBPLOmPZqKWka8okOuGKOIpA";
+	local stage1 = "QRX4,haaaa^30VX5uaaaPYIIIIIIIIIIIIIIII7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJIVQKpbpCZgrKOcDTd28MoxLppNoOpn1kWhQxokOWgKOM0A";
 	local stage2 = "idmeQfjmhBbmgcjcAilRgkAppfcbmilfmceIfaijofiadnmapnldAAhffbgkEgiAcaAAgiAABAgiAAAccppVoahcipAgkEgiAQAAgiAABAgiAAAccppVoahcipAifmahedpffgkeagiAfaepAgiAQeaAoidbAAAppnaifmahechmgFmapnldABffgkDfdppVmmhaipAidmeMijmglpAAAccilenApdkeliAAAccppnafimcEAgkAgigfgmdddcgiglgfhcgofeppVgihcipAgigdheAAgihcgphegfgihfgbgmfagifggjhchefefappVgehcipAidmebmmd";
-	local stage3 = "ojepBAAfddgeigpgpglAfddgeigpgpglcaejgogggpAhnEAccGechcgfgbglAibBAccGebgmgfhcheAkgBAccFefhggbgmAobBAccQehgfheefgohegjhehjebgehcgfhdhdAECAccPfcgfgbgeeghcgpgnebgehcgfhdhdAdbCAccOfhhcgjhegffegpebgehcgfhdhdAPDAccUefenfifpfdgfheengbhifdhegpgdglfdgjhkgfAnbCAccUefenfifpehgfheengbhifdhegpgdglfdgjhkgfAieCAccbjefenfifpfdgfheengbhifdhegphcgffdhegpgdglfdgjhkgfAgbCAccblefenfifpfdgfheengbhiechfgjgmgegjgoghefgbhcgogjgoghhdAjpDAccUefenfifpfdgfhefdgfhehegmgfhcemgjgngjheAfmDAccbkefenfifpfdgfhefdgfhcgngpgofdgfhehegmgfhcemgjgngjheAndDAccWefenfifpehgfhefegphaengphdheebhcgdgigjhggfAdkEAccUefenfifpfdgfhefdgpgmgegjgfhcemgjgngjheAAAAAgaildnjmoakkAloYAAccgkAppdgidmgFfgPlgegppBmggiFAAccijpjoikafmegnoiddoAhfobgbmdilheceEgkAgkBfgppVmmhaipAidmeMgkeagiMAAccfagkAppVhmheipAdbmamdilheceEfaijofffgkBfgppVmmhaipAgkApphfAfafgppVjahaipAidmecaliBAAAmdoielccegnogbliBAAAmdilemcecegkAolomgailemceceijmlgkBoijfcbegnofaoinmnefbnofaijnjoicaccegnogbliBAAAmdgailemcecegkBoihecbegnoijmdilemcecegkCoighcbegnoilEidilemcecefaoipdcbegnogbliBAAAmdgailemcecegkBoiehcbegnofailemcecigkCoidlcbegnofailemcecmgkDoicpcbegnofkflijEjdgbliAAAAmdgailemcecegkBoiXcbegnoilbnpmoakkAijidhaCAAilemcecegkBojejppppppgailemceceijmlgkCoipccaegnoijmdilemcecegkBoiofcaegnofaoicmnefbnoifmaPiecmppppppijmboiiidnepnoifmaPiebnppppppijmbfdgkBoicnclfmnoilemcecegkBojpmpoppppgailemceceijmlgkBoikfcaegnofaoiomndfbnoifmaPieompoppppijmboiokdmepnoifmaPiennpoppppijmbgkBoijlmdfanoilemcecefaojlopoppppgailemceceijmlgkCoighcaegnoijmdilemcecegkBoifkcaegnofaoikbndfbnoifmaPiekbpoppppijmboijpdmepnoifmaPiejcpoppppijmbfdgkBoiCnafanoilemcecegkBojhbpoppppgailNAoekkAgkBoipjljeknoifmaPieghpoppppiljiiaAAAiljlpeCAAilemcecegkBoiplbpegnoijDijedEijedIijedMilemcecegkBojcopoppppgailemcecegkBoinjbpegnoilVpmoakkAiljcjiBAAijCijecEijecIijecMijecQijecUilemcecegkBojpkpnppppgailemceceijmlildffmlkkkAilegIilAileaMfaijnjoifhcaegnogbliBAAAmdgailfmceceibomABAAijofgkAgkBfdppVmmhaipAildffmlkkkAilegIilAileaMgimfjafogagkBfailNfmlkkkAilRppfcbmibmeABAAgbdbmamdgailNAoekkAgkBoiejlgeknoifmaPieijpnppppiliiiaAAAiljjUDAAilemcecegkBoibnbpegnoijDijedEijedIijedMilemcecegkBojfapnppppmmdbmamdmd";
+	local stage3 = "ojgnBAAfddgeigpgpglAfddgeigpgpglcaejgogggpAdlFAccGechcgfgbglAjpBAccGebgmgfhcheAmeBAccFefhggbgmAppBAccQehgfheefgohegjhehjebgehcgfhdhdAccCAccPfcgfgbgeeghcgpgnebgehcgfhdhdAepCAccOfhhcgjhegffegpebgehcgfhdhdAmnDAccUefenfifpfdgfheengbhifdhegpgdglfdgjhkgfAipDAccUefenfifpehgfheengbhifdhegpgdglfdgjhkgfAecDAccbjefenfifpfdgfheengbhifdhegphcgffdhegpgdglfdgjhkgfAbpDAccblefenfifpfdgfheengbhiechfgjgmgegjgoghefgbhcgogjgoghhdAhpCAccbjefenfifpfdgfheeghfgmgmechfgjgmgegjgoghedgphdhehdAfnEAccUefenfifpfdgfhefdgfhehegmgfhcemgjgngjheAbkEAccbkefenfifpfdgfhefdgfhcgngpgofdgfhehegmgfhcemgjgngjheAjbEAccWefenfifpehgfhefegphaengphdheebhcgdgigjhggfApiEAccUefenfifpfdgfhefdgpgmgegjgfhcemgjgngjheAAAAAgaildnjmoakkAloYAAccgkAppdgidmgFfgPlgegppBmggiFAAccijpjoiicfmegnoiddoAhfobgbmdilheceEgkAgkBfgppVmmhaipAidmeMgkeagiMAAccfagkAppVhmheipAdbmamdilheceEfaijofffgkBfgppVmmhaipAgkApphfAfafgppVjahaipAidmecaliBAAAmdoicnccegnogbliBAAAmdilemcecegkAolomgailemceceijmlgkBoihhcbegnofaoilonefbnofaijnjoiCccegnogbliBAAAmdgailemcecegkBoifgcbegnoijmdilemcecegkCoiejcbegnoilEidilemcecefaoinfcbegnogbliBAAAmdgailemcecegkBoicjcbegnofailemcecigkCoibncbegnofailemcecmgkDoiRcbegnofkflijEjdgbliAAAAmdgailemcecegkBoipjcaegnoifmaPiegeppppppilbngaoakkAilflbmilbmidifnlPiefappppppilemcecegkCoinccaegnoifmaPiednppppppijmhilemcecegkDoilncaegnoifmaPiecippppppijmciljljaAAAifnlPieYppppppijdlijfdEilemcecegkEoijfcaegnoifmaPieAppppppijmhilemcecegkFoiiacaegnoifmaPieolpoppppijmcijfdIijhlMilemcecegkBojmmpoppppgailemcecegkBoifjcaegnoilbnpmoakkAijidhaCAAilemcecegkBojkjpoppppgailemceceijmlgkCoidecaegnoijmdilemcecegkBoichcaegnofaoigondfbnoifmaPieimpoppppijmboimkdmepnoifmaPiehnpoppppijmbfdgkBoigpckfmnoilemcecegkBojfmpoppppgailemceceijmlgkBoiohbpegnofaoicondfbnoifmaPieempoppppijmboicmdmepnoifmaPiednpoppppijmbgkBoinnmcfanoilemcecefaojbopoppppgailemceceijmlgkCoikjbpegnoijmdilemcecegkBoijmbpegnofaoiodncfbnoifmaPieBpoppppijmboiobdlepnoifmaPiepcpnppppijmbfdgkBoieempfanoilemcecegkBojnbpnppppgailNAoekkAgkBoidlljeknoifmaPiemhpnppppiljiiaAAAiljlpeCAAilemcecegkBoidnbpegnoijDijedEijedIijedMilemcecegkBojiopnppppgailemcecegkBoiblbpegnoilVpmoakkAiljcjiBAAijCijecEijecIijecMijecQijecUilemcecegkBojfkpnppppgailemceceijmlildffmlkkkAilegIilAileaMfaijnjoijjbpegnogbliBAAAmdgailfmceceibomABAAijofgkAgkBfdppVmmhaipAildffmlkkkAilegIilAileaMgimfjafogagkBfailNfmlkkkAilRppfcbmibmeABAAgbdbmamdgailNAoekkAgkBoiillfeknoifmaPieojpmppppiliiiaAAAiljjUDAAilemcecegkBoifpboegnoijDijedEijedIijedMilemcecegkBojlapmppppmmdbmamdmd";
 	
 	local shrink = function(cc)
 		local o, n, max = {}, 1, string.len(cc)

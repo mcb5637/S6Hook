@@ -3,7 +3,62 @@ section luaTable
 		tableEntry EMGetMaxStockSize,		"EMX_GetMaxStockSize"
 		tableEntry EMSetStoreStockSize,		"EMX_SetMaxStoreStockSize"
 		tableEntry EMSetMaxBuildingIncome,	"EMX_SetMaxBuildingEarnings"
+		tableEntry EMSetFullBuildingCosts,	"EMX_SetFullBuildingCosts"
 section code
+EMSetFullBuildingCosts:
+		pushad
+        ; Entity Type as Number
+		mov ecx, [esp+24h]
+        push 1
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov ebx, dword [0AAE060h]
+		mov ebx, [ebx + 1Ch]
+		mov ebx, dword [ebx + eax * 4h]
+		test ebx, ebx ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov ecx, [esp+24h]
+        push 2
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		mov edi, eax
+		mov ecx, [esp+24h]
+		push 3
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		mov edx, eax
+		
+		mov ebx, [ebx + 90h]
+		test ebx, ebx ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov [ebx], edi ; Good Type
+		mov [ebx + 4h], edx ; Good Amount
+		
+		mov ecx, [esp+24h]
+        push 4
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		mov edi, eax
+		mov ecx, [esp+24h]
+		push 5
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		mov edx, eax
+		
+		mov [ebx + 8h], edx ; Good Type
+		mov [ebx + 0Ch], edi ; Good Amount
+		
+		mov ecx, [esp+24h] ; get lua state
+        push 1
+		jmp returnToLuaState
 EMSetMaxBuildingIncome:
 		pushad
         ; New Earnings Amount
