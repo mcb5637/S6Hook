@@ -11,11 +11,12 @@ sS6Hook			db "S6Hook", 0
 section luaTable align=1
 luaFuncTable:
 		tableEntry triggerInt3,		"Break"
-
+section localLuaTable align=1 ; Local Funcs, probably coming in the future
+localLuaFuncTable:
+		tableEntry triggerInt3,		"Break"
 section globalVars align=1
 				dd 0						; 0 marks end of table
 											; no global vars so far
-				
 section code align=1
 installer:
 		pushad 
@@ -35,9 +36,32 @@ installer:
 		cmp dword [esi], 0
 		jnz .nextEntry
 		
-		; TODO: insert hooks to call unpatchEverything 
-		; on unload of the map (see S5Hook) 
+		jmp .finishInstallAndRegister
+.installerLocal:
+		;Local Lua Funcs
+		;mov edi, [locLuaHandle] ;+19C|1D4|
+		;call 4a5530h
+		;imul ecx, ecx, 4Ch
+		;mov ebx, [locLuaHandle]
+		;add ecx, dword [ebx + 1D4h] ; 1ABC, 1AC0 -> Global and Local
+		mov ecx, [locLuaHandle]
+		mov edi, [ecx + 2B4h]
+		mov edi, [edi + 1AC0h]
+		mov esi, localLuaFuncTable	
+.nextLocalEntry:		
+		push 0						; no description
+		push dword [esi]			; func ptr
+		add esi, 5
+		push esi					; func name (string)
+		movzx eax, byte [esi-1]		; skip over func name
+		add esi, eax
+		push sS6Hook				; base table
+		mov ecx, edi				; local lua_state
+		call regLuaFunc
 		
+		cmp dword [esi], 0
+		jnz .nextLocalEntry
+.finishInstallAndRegister:
 		popad
 		retn
 		

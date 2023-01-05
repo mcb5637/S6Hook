@@ -1,7 +1,7 @@
 --[[ S6Hook v0.1a  // by yoq ]]--
 --[[ Changes by mcb          ]]--
 --[[ Changes by Eisenmonoxid ]]--
---[[ Current Version: 1.0.4  ]]--
+--[[ Current Version: 1.0.5  ]]--
 
 	-- "Documentation" by Eisenmonoxid ( If someone wants to do a actual documentation, feel free to do it ;) )
 	--[[ 
@@ -22,6 +22,8 @@
 		S6Hook.EMX_SetFullBuildingCosts(_buildingType, _Good, _Amount, _Good, _Amount)
 			-> Sets new building costs for a building, note that the last two parameters only work when
 			   the building already had two goods as costs! Otherwise unexpected things will happen ;)
+		S6Hook.EMX_SetEntityMaxHealth(_entityID, _newMaxHealth)
+			-> Sets a new max health for the specified entity
 		S6Hook.EMX_GetTopMostArchive() 
 			-> Returns the topmost archive that is currently loaded
 		
@@ -59,6 +61,7 @@
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetMaxBuildingEarnings(554)) -> Sets new max earnings amount
 			
 			S6Hook.EMX_SetFullBuildingCosts(76, Goods.G_Grain, 15) -> 76 is B_Baths f.e.
+			Logic.DEBUG_AddNote(S6Hook.EMX_SetEntityMaxHealth(Logic.GetKnightID(1), 8000))
 		end
 	--]]
 	

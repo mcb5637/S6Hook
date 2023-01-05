@@ -17,7 +17,6 @@ regLuaFunc		        equ	465E1Ah		; 0, funcPtr, strFuncName, strTable;   ecx = lu
 
 ;Added By Eisenmonoxid
 setStockSizeOfObjectStore equ 5c2df3h 
-;setStorehouseStock       equ 5c2c83h ; useless :(
 getAmountOfOutStock       equ 5ba9b0h 
 getOutStockObject         equ 4f3fdeh
 getMaxOutStockSize        equ 50c6a0h
@@ -61,7 +60,7 @@ lua_open		equ	999999h
 lua_gettop		equ	999999h
 lua_settop		equ	999999h
 lua_type		equ	999999h
-lua_dostring	equ	999999h
+lua_tostring	equ	4623bfh
 lua_pushstring	equ 462447h ; this, str
 lua_pushnumber	equ 999999h
 lua_pushboolean equ	999999h
@@ -80,7 +79,7 @@ luaL_unref		equ	999999h
 luaL_ref		equ	999999h
 luaL_loadbuffer	equ	8F7090h
 
-lua_tostring	equ 999999h		; does not exist in Lua 5.1
+;lua_tostring	equ 999999h		; does not exist in Lua 5.1
 
 ; Windows
 virtualAlloc	equ 8F72E0h

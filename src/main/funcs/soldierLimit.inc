@@ -1,6 +1,44 @@
 section luaTable
 		tableEntry EMSoldierLimit,   "EMX_SetSoldierLimit"
+		tableEntry EMSetMaxHealth,   "EMX_SetEntityMaxHealth"
 section code
+EMSetMaxHealth:
+		pushad
+		; New Max Health Value
+		mov ecx, [esp+24h]
+        push 2
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		mov edx, eax
+		
+        ; Entity ID 
+		mov ecx, [esp+24h]
+        push 1
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov ecx, dword [listOfEntityIDs]
+		push eax
+		call getEntityIDObjectPtr
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov edx, dword [eax]
+		mov ecx, eax
+		;call dword [edx + 0B0h] -> Original Function to get Max Health
+		
+		mov eax, dword [ecx + 18h]
+		mov ecx, dword [00aae060h]
+		mov ecx, dword [ecx + 1Ch]
+		mov eax, dword [ecx + eax * 4h]
+		;mov eax, dword [eax + 24h]
+		mov dword [eax + 24h], edx
+
+		mov ecx, [esp+24h] ; get lua state
+        push 1
+		jmp returnToLuaState
 EMSoldierLimit:
 		pushad
 			

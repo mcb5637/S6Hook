@@ -1,9 +1,9 @@
 section luaTable
-		tableEntry EMSetMaxStockSize,		"EMX_SetMaxStockSize"
-		tableEntry EMGetMaxStockSize,		"EMX_GetMaxStockSize"
-		tableEntry EMSetStoreStockSize,		"EMX_SetMaxStoreStockSize"
-		tableEntry EMSetMaxBuildingIncome,	"EMX_SetMaxBuildingEarnings"
-		tableEntry EMSetFullBuildingCosts,	"EMX_SetFullBuildingCosts"
+		tableEntry EMSetMaxStockSize,			"EMX_SetMaxStockSize"
+		tableEntry EMGetMaxStockSize,			"EMX_GetMaxStockSize"
+		tableEntry EMSetStoreStockSize,			"EMX_SetMaxStoreStockSize"
+		tableEntry EMSetMaxBuildingIncome,		"EMX_SetMaxBuildingEarnings"
+		tableEntry EMSetFullBuildingCosts,		"EMX_SetFullBuildingCosts"
 section code
 EMSetFullBuildingCosts:
 		pushad
