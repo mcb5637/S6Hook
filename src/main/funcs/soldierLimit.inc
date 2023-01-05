@@ -3,15 +3,7 @@ section luaTable
 		tableEntry EMSetMaxHealth,   "EMX_SetEntityMaxHealth"
 section code
 EMSetMaxHealth:
-		pushad
-		; New Max Health Value
-		mov ecx, [esp+24h]
-        push 2
-        call shok_lua_toint
-		test eax, eax ; Is the Object Zero?
-		je noObjectFoundError
-		mov edx, eax
-		
+		pushad		
         ; Entity ID 
 		mov ecx, [esp+24h]
         push 1
@@ -34,7 +26,16 @@ EMSetMaxHealth:
 		mov ecx, dword [ecx + 1Ch]
 		mov eax, dword [ecx + eax * 4h]
 		;mov eax, dword [eax + 24h]
-		mov dword [eax + 24h], edx
+		mov edi, eax 
+		
+		; New Max Health Value
+		mov ecx, [esp+24h]
+        push 2
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+
+		mov dword [edi + 24h], eax
 
 		mov ecx, [esp+24h] ; get lua state
         push 1
