@@ -26,6 +26,8 @@ EMSetMaxHealth:
 		mov ecx, dword [ecx + 1Ch]
 		mov eax, dword [ecx + eax * 4h]
 		;mov eax, dword [eax + 24h]
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
 		mov edi, eax 
 		
 		; New Max Health Value
@@ -35,7 +37,7 @@ EMSetMaxHealth:
 		test eax, eax ; Is the Object Zero?
 		je noObjectFoundError
 
-		mov dword [edi + 24h], eax
+		mov dword [edi + 24h], dword eax
 
 		mov ecx, [esp+24h] ; get lua state
         push 1

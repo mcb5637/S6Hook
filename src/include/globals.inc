@@ -16,6 +16,8 @@ shok_lua_pushint        equ 46241Dh    ; thiscall: lua state in ecx
 regLuaFunc		        equ	465E1Ah		; 0, funcPtr, strFuncName, strTable;   ecx = luaState
 
 ;Added By Eisenmonoxid
+luaGetFloat               equ 4623a7h
+
 setStockSizeOfObjectStore equ 5c2df3h 
 getAmountOfOutStock       equ 5ba9b0h 
 getOutStockObject         equ 4f3fdeh
@@ -45,10 +47,10 @@ fileSystemMgr_FILENAME    equ 0Ch ;Same as S5
 shok_FileSystemMgrVtO_RemoveTopArchive  equ 2Ch ; Not really sure right now ...
 
 ;common
-strncpy			equ 999999h		; num, src, dest
-memcpy 			equ	999999h		; num bytes, source, dest
+strncpy			equ 72c520h		; num, src, dest
+memcpy 			equ	72b090h		; num bytes, source, dest
 strlen			equ	999999h		; str, after call len in eax
-strdup			equ 999999h
+strdup			equ 74fe83h
 malloc			equ 999999h		
 
 ; "global" vars
