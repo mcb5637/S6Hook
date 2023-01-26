@@ -1,8 +1,46 @@
 section luaTable
-		tableEntry EMSetterLimit, 			"EMX_SetSettlerLimit"
-		tableEntry EMSetterSermonLimit, 	"EMX_SetSermonSettlerLimit"
-		tableEntry EMSetTerritoryGoldCost, 	"EMX_SetTerritoryGoldCostByIndex"
+		tableEntry EMSetterLimit, 				"EMX_SetSettlerLimit"
+		tableEntry EMSetterSermonLimit, 		"EMX_SetSermonSettlerLimit"
+		tableEntry EMSetTerritoryGoldCost, 		"EMX_SetTerritoryGoldCostByIndex"
+		tableEntry EMSetMaxWorkersForBuilding, 	"EMX_SetMaxBuildingWorkers"
 section code
+EMSetMaxWorkersForBuilding:
+		pushad
+        ; Entity Type as Number
+		mov ecx, [esp+24h]
+        push 1
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+        ; Entity ID - Ptr Object
+        push eax
+        call shok_eid2obj
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+		push eax
+		call 49b74ch ; Get some specific offset
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+		
+		mov ebx, eax
+		pop eax ; You have no idea how many hours i've lost due to this line missing :(
+		mov ebx, [ebx + 80h]
+		
+		mov ecx, [esp+24h]
+        push 2
+        call shok_lua_toint
+		test eax, eax ; Is the Object Zero?
+		je noObjectFoundError
+
+		mov dword [ebx + 120h], eax
+		
+		;call 4C0AB7h ; Get Max Workers
+		
+		mov ecx, [esp+24h] ; get lua state
+        push 1
+		jmp returnToLuaState
 EMSetterSermonLimit:
 		pushad
 		

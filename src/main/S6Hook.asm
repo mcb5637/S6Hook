@@ -11,9 +11,6 @@ sS6Hook			db "S6Hook", 0
 section luaTable align=1
 luaFuncTable:
 		tableEntry triggerInt3,		"Break"
-section localLuaTable align=1 ; Local Funcs, probably coming in the future
-localLuaFuncTable:
-		tableEntry triggerInt3,		"Break"
 section globalVars align=1
 				dd 0						; 0 marks end of table
 											; no global vars so far
