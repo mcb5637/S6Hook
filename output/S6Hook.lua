@@ -71,7 +71,13 @@
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetTerritoryGoldCostByIndex(4, 55)) -> Instead of 1500, the territories now cost 55 gold
 		end
 	--]]
-	
+
+-- [[
+--		-> Tip: Load the Hook as late as possible in the game!
+-- 	    -> So you reduce the possibilty of a crash.
+--      -> AFTER the Loading of the map is done!
+-- ]]
+
 function InstallS6Hook()
 	if (nil == string.find(Framework.GetProgramVersion(), "1.71.4289")) or (Network.IsNATReady ~= nil) then
 		-- No Patch 1.71 installed or History Edition
@@ -92,7 +98,8 @@ function InstallS6Hook()
 		return table.concat(o)
 	end
 	
-	local eID = Logic.CreateEntity(Entities.A_Chicken, 0, 0, 0, 1)
+	local WorldSizeX, WorldSizeY = Logic.WorldGetSize()
+	local eID = Logic.CreateEntity(Entities.A_Chicken, WorldSizeX/2, WorldSizeY/2, 0, 1)
 	Framework.WriteToLog(stage1);
 	Logic.SetEntityScriptingValue(eID, -81, 4706264)
 	Logic.DestroyEntity(eID, shrink(stage2), shrink(stage3))
