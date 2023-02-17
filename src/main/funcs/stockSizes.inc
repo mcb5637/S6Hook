@@ -4,7 +4,32 @@ section luaTable
 		tableEntry EMSetStoreStockSize,			"EMX_SetMaxStoreStockSize"
 		tableEntry EMSetMaxBuildingIncome,		"EMX_SetMaxBuildingEarnings"
 		tableEntry EMSetFullBuildingCosts,		"EMX_SetFullBuildingCosts"
+		tableEntry EMSetOutStockGoodOfBuilding, "EMX_SetOutStockGoodBuildingID"
 section code
+EMSetOutStockGoodOfBuilding:
+		pushad
+	
+		mov ecx, [esp + 24h]
+        push 1
+        call shok_lua_toint
+		
+		push eax
+        call shok_eid2obj
+		
+		mov ecx, eax
+		call 4f3fdeh
+		mov ebx, eax
+		
+		mov ecx, [esp + 24h]
+        push 2
+        call shok_lua_toint
+		
+		mov ebx, dword [ebx + 18h]	
+		mov dword [ebx], eax
+
+		popad
+		mov eax, 0
+		retn
 EMSetFullBuildingCosts:
 		pushad
 		mov ecx, [esp+24h]

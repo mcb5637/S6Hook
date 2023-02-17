@@ -1,7 +1,7 @@
 --[[ S6Hook v0.1a  // by yoq ]]--
 --[[ Changes by mcb          ]]--
 --[[ Changes by Eisenmonoxid ]]--
---[[ Current Version: 1.0.7  ]]--
+--[[ Current Version: 1.0.8  ]]--
 
 	-- "Documentation" ( If someone wants to do a actual documentation, feel free to do it ;) )
 	--[[ 
@@ -29,6 +29,8 @@
 			-> Sets for the array indizes (0 - 4) new gold costs
 		S6Hook.EMX_SetMaxBuildingWorkers(_buildingID, _newMaxWorkerAmount)
 			-> Sets the new maximum worker number for a building
+		S6Hook.EMX_SetOutStockGoodBuildingID(_buildingID, _newGood)
+			-> Sets a new Outstock Good for a Building
 		S6Hook.EMX_GetTopMostArchive() 
 			-> Returns the topmost archive that is currently loaded
 		
@@ -69,11 +71,12 @@
 			S6Hook.EMX_SetMaxBuildingWorkers(ID, 55) -> 55 possible building workers
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetEntityMaxHealth(Logic.GetKnightID(1), 3333))
 			Logic.DEBUG_AddNote(S6Hook.EMX_SetTerritoryGoldCostByIndex(4, 55)) -> Instead of 1500, the territories now cost 55 gold
+			S6Hook.EMX_SetOutStockGoodBuildingID(ID, Goods.G_Dye)
 		end
 	--]]
 	
 -- [[
---		-> Tip: Load the Hook as late as possible in the game!
+--		-> General Usage Advice: Load the Hook as late as possible in the game!
 -- 	    -> So you reduce the possibilty of a crash.
 --      -> AFTER the Loading of the map is done!
 -- ]]
