@@ -45,8 +45,6 @@ evalLua:
 									; on the return stack, so we return 1
 									; to indicate that there is 1 return value
 		retn
-;Additions by Eisenmonoxid to be used by other files
-; !-> All registers must be on the stack so popad works <-!
 returnToLuaState:
 		call shok_lua_pushint
 		popad
