@@ -49,7 +49,6 @@
 				Logic.DEBUG_AddNote("Hook Installed!")
 			else
 				Logic.DEBUG_AddNote("Hook not Installed! Aborting ...")
-				return;
 			end
 	
 			local ID = GetID("Woodcutter") -- Scriptname of building that should be used
@@ -77,8 +76,9 @@
 	
 -- [[
 --		-> General Usage Advice: Load the Hook as late as possible in the game!
--- 	    -> So you reduce the possibilty of a crash.
+-- 	    -> So you reduce the possibility of a crash.
 --      -> AFTER the Loading of the map is done!
+-- 		-> Also, AFTER the Saveload is finished!
 -- ]]
 
 function InstallS6Hook()
@@ -103,7 +103,7 @@ function InstallS6Hook()
 	
 	local WorldSizeX, WorldSizeY = Logic.WorldGetSize()
 	local eID = Logic.CreateEntity(Entities.A_Chicken, WorldSizeX/2, WorldSizeY/2, 0, 1)
-	Framework.WriteToLog(stage1);
+	Framework.WriteToLog(stage1)
 	Logic.SetEntityScriptingValue(eID, -81, 4706264)
 	Logic.DestroyEntity(eID, shrink(stage2), shrink(stage3))
 	

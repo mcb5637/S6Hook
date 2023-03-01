@@ -12,9 +12,13 @@ EMSetOutStockGoodOfBuilding:
 		mov ecx, [esp + 24h]
         push 1
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		
 		push eax
         call shok_eid2obj
+		test eax, eax
+		je noObjectFoundError
 		
 		mov ecx, eax
 		call 4f3fdeh
@@ -23,19 +27,23 @@ EMSetOutStockGoodOfBuilding:
 		mov ecx, [esp + 24h]
         push 2
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		
 		mov ebx, dword [ebx + 18h]	
 		mov dword [ebx], eax
-
-		popad
-		mov eax, 0
-		retn
+		
+		mov ecx, [esp+24h]
+        push 1
+		jmp returnToLuaState
 EMSetFullBuildingCosts:
 		pushad
-		mov ecx, [esp+24h]
 		
+		mov ecx, [esp+24h]
         push 1
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		
 		mov ebx, dword [0AAE060h]
 		mov ebx, [ebx + 1Ch]
@@ -44,40 +52,45 @@ EMSetFullBuildingCosts:
 		mov ecx, [esp+24h]
         push 2
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 
 		mov edi, eax
 		mov ecx, [esp+24h]
 		push 3
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		mov edx, eax
 		
 		mov ebx, [ebx + 90h]		
-		mov [ebx], edi ; Good Type
-		mov [ebx + 4h], edx ; Good Amount
+		mov [ebx], edi ; good type
+		mov [ebx + 4h], edx ; good amount
 		
-		;mov ecx, [esp+24h]
-        ;push 4
-        ;call shok_lua_toint
-		;test eax, eax ; Is the Object Zero?
-		;je noObjectFoundError
-		;mov edi, eax
-		;mov ecx, [esp+24h]
-		;push 5
-        ;call shok_lua_toint
-		;test eax, eax ; Is the Object Zero?
-		;je noObjectFoundError
-		;mov edx, eax
+		mov ecx, [esp+24h]
+        push 4
+        call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError ; when the building only has one good, exit here
 		
-		;mov [ebx + 8h], edx ; Good Type
-		;mov [ebx + 0Ch], edi ; Good Amount
+		mov edi, eax
+		mov ecx, [esp+24h]
+		push 5
+        call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		
-		mov ecx, [esp+24h] ; get lua state
+		mov edx, eax
+		mov [ebx + 8h], edx ; good type
+		mov [ebx + 0Ch], edi ; good amount
+		
+		mov ecx, [esp+24h]
         push 1
 		jmp returnToLuaState
 EMSetMaxBuildingIncome:
 		pushad
-		mov ecx, [esp+24h]
 		
+		mov ecx, [esp+24h]
         push 1
         call shok_lua_toint
 		
@@ -89,18 +102,24 @@ EMSetMaxBuildingIncome:
 		jmp returnToLuaState
 EMSetStoreStockSize:
 		pushad
+		
         mov ecx, [esp+24h]
-
         push 2
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		mov ebx, eax
 
 		mov ecx, [esp+24h]
         push 1
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 
         push eax
         call shok_eid2obj
+		test eax, eax
+		je noObjectFoundError
 
 		mov ecx, eax
 		call castStockBehavior
@@ -112,13 +131,17 @@ EMSetStoreStockSize:
 		jmp returnToLuaState
 EMGetMaxStockSize:
         pushad
+		
         mov ecx, [esp+24h]
-
         push 1
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 	       
         push eax
         call shok_eid2obj
+		test eax, eax
+		je noObjectFoundError
 
 		mov ecx, eax
 		call getOutStockObject
@@ -130,18 +153,24 @@ EMGetMaxStockSize:
 		jmp returnToLuaState
 EMSetMaxStockSize:
         pushad
-        mov ecx, [esp+24h]
 		
+        mov ecx, [esp+24h]	
         push 2
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 		mov ebx, eax
         
 		mov ecx, [esp+24h]
         push 1
         call shok_lua_toint
+		test eax, eax
+		je noObjectFoundError
 	       
         push eax
         call shok_eid2obj
+		test eax, eax
+		je noObjectFoundError
         
 		mov ecx, eax
 		call getOutStockObject
