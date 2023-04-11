@@ -1,3 +1,4 @@
+; by mcb
 section luaTable
         tableEntry getEntityAdress,         "GetEntityAdress"
         tableEntry readFromAdress,          "ReadFromAdress"

@@ -45,3 +45,12 @@ evalLua:
 									; on the return stack, so we return 1
 									; to indicate that there is 1 return value
 		retn
+returnToLuaState:
+		call shok_lua_pushint
+		popad
+		mov eax, 1 ; Return whether it worked or not
+        retn
+noObjectFoundError:
+		mov ecx, [esp+24h] ; get lua state
+        push 0		
+		jmp returnToLuaState

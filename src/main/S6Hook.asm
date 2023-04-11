@@ -11,11 +11,9 @@ sS6Hook			db "S6Hook", 0
 section luaTable align=1
 luaFuncTable:
 		tableEntry triggerInt3,		"Break"
-
 section globalVars align=1
 				dd 0						; 0 marks end of table
 											; no global vars so far
-				
 section code align=1
 installer:
 		pushad 
@@ -34,10 +32,7 @@ installer:
 		
 		cmp dword [esi], 0
 		jnz .nextEntry
-		
-		; TODO: insert hooks to call unpatchEverything 
-		; on unload of the map (see S5Hook) 
-		
+.finishInstallAndRegister:
 		popad
 		retn
 		
@@ -47,16 +42,12 @@ installer:
 %include 'funcs/settlerLimit.inc'
 %include 'funcs/archiveLoading.inc'
 %include 'funcs/soldierLimit.inc'
-
 ;%include 'funcs/testingStuff.inc'
 
 triggerInt3:
 		int3
 		xor eax, eax
 		retn
-		
-		; TODO: code for these hooks 
-
 unpatchEverything:
 section cleanup align=1
 		retn
